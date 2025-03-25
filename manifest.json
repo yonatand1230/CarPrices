@@ -2,7 +2,7 @@
     "name": "Car Prices Calculator",
     "short_name": "Car Prices",
     "description": "Compare the costs of leasing a car versus buying and selling",
-    "start_url": "/",
+    "start_url": "/CarPrices",
     "display": "standalone",
     "background_color": "#f8f9fa",
     "theme_color": "#3498db",
