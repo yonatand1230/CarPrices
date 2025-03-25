@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#3498db">
+  <title>Car Lease vs Purchase Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192x192.png">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Car Lease vs Purchase Calculator</h1>
+      <p>Compare the costs of leasing a car versus buying and selling after a set period</p>
+    </header>
+
+    <div class="global-settings">
+      <div class="setting-field">
+        <label for="yearPeriod">Time Period (Years)</label>
+        <input type="number" id="yearPeriod" value="3" min="1" max="20" step="1">
+      </div>
+      
+      <div class="toggle-container">
+        <label class="toggle-label">Financial Model:</label>
+        <div class="toggle-switch">
+          <input type="checkbox" id="investmentToggle">
+          <label for="investmentToggle" class="toggle-label-switch">
+            <span class="toggle-option loan active">Loan</span>
+            <span class="toggle-slider"></span>
+            <span class="toggle-option investment">Investment</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="calculator">
+      <div class="input-section">
+        <h2>Input Parameters</h2>
+        
+        <div class="input-group">
+          <h3>Leasing Details</h3>
+          <div class="input-field">
+            <label for="advancePayment">Advance Payment (ILS)</label>
+            <input type="number" id="advancePayment" value="3900" min="0" step="100">
+          </div>
+          
+          <div class="input-field">
+            <label for="leasingMonthly">Monthly Leasing Price (ILS)</label>
+            <input type="number" id="leasingMonthly" value="2775" min="0" step="50">
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <h3>Purchase Details</h3>
+          <div class="input-field">
+            <label for="newCarPrice">New Car Price (ILS)</label>
+            <input type="number" id="newCarPrice" value="169500" min="0" step="1000">
+          </div>
+          
+          <div class="input-field">
+            <label for="carValueAfterPeriod">Car Value After <span id="yearLabel">3</span> Years (ILS)</label>
+            <input type="number" id="carValueAfterPeriod" value="121000" min="0" step="1000">
+          </div>
+          
+          <div class="input-field finance-option loan-option">
+            <label for="loanPercentage">Loan Interest Rate (%)</label>
+            <input type="number" id="loanPercentage" value="8" min="0" max="30" step="0.1">
+          </div>
+          
+          <div class="input-field finance-option investment-option">
+            <label for="investmentPercentage">Investment Return Rate (%)</label>
+            <input type="number" id="investmentPercentage" value="4" min="0" max="30" step="0.1">
+          </div>
+          
+          <div class="input-field">
+            <label for="yearlyTest">Yearly Test Cost (ILS)</label>
+            <input type="number" id="yearlyTest" value="2500" min="0" step="100">
+          </div>
+          
+          <div class="input-field">
+            <label for="yearlyCare">Yearly Maintenance Cost (ILS)</label>
+            <input type="number" id="yearlyCare" value="1000" min="0" step="100">
+          </div>
+          
+          <div class="input-field">
+            <label for="yearlyInsurance">Yearly Insurance Cost (ILS)</label>
+            <input type="number" id="yearlyInsurance" value="6000" min="0" step="100">
+          </div>
+        </div>
+      </div>
+
+      <div class="results-section">
+        <h2>Results</h2>
+        <div class="comparison-card">
+          <div class="cost-summary">
+            <div class="cost-column purchase">
+              <h3>Purchase</h3>
+              <div class="amount"><span id="purchaseAmount">0</span> ILS</div>
+              <div class="label">per month</div>
+            </div>
+            
+            <div class="vs">VS</div>
+            
+            <div class="cost-column leasing">
+              <h3>Leasing</h3>
+              <div class="amount"><span id="leasingAmount">0</span> ILS</div>
+              <div class="label">per month</div>
+            </div>
+          </div>
+          
+          <div class="difference-row">
+            <div class="difference-label">Difference:</div>
+            <div class="difference-amount"><span id="differenceAmount">0</span> ILS</div>
+            <div class="difference-winner" id="winner"></div>
+          </div>
+        </div>
+        
+        <div class="details-container">
+          <div class="details-toggle" id="toggleDetails">
+            Show detailed breakdown <i class="fas fa-chevron-down"></i>
+          </div>
+          
+          <div class="detailed-breakdown" id="detailedBreakdown">
+            <div class="breakdown-column">
+              <h3>Purchase Breakdown</h3>
+              <div class="breakdown-item">
+                <div class="item-label">Car Depreciation:</div>
+                <div class="item-value"><span id="depreciationValue">0</span> ILS</div>
+              </div>
+              <div class="breakdown-item finance-item loan-item">
+                <div class="item-label">Monthly Loan Payment:</div>
+                <div class="item-value"><span id="loanValue">0</span> ILS</div>
+              </div>
+              <div class="breakdown-item finance-item investment-item">
+                <div class="item-label">Monthly Opportunity Cost:</div>
+                <div class="item-value"><span id="investmentValue">0</span> ILS</div>
+              </div>
+              <div class="breakdown-item">
+                <div class="item-label">Monthly Test Cost:</div>
+                <div class="item-value"><span id="testValue">0</span> ILS</div>
+              </div>
+              <div class="breakdown-item">
+                <div class="item-label">Monthly Maintenance:</div>
+                <div class="item-value"><span id="careValue">0</span> ILS</div>
+              </div>
+              <div class="breakdown-item">
+                <div class="item-label">Monthly Insurance:</div>
+                <div class="item-value"><span id="insuranceValue">0</span> ILS</div>
+              </div>
+            </div>
+            
+            <div class="breakdown-column">
+              <h3>Leasing Breakdown</h3>
+              <div class="breakdown-item">
+                <div class="item-label">Base Monthly Payment:</div>
+                <div class="item-value"><span id="leasingBaseValue">0</span> ILS</div>
+              </div>
+              <div class="breakdown-item">
+                <div class="item-label">Advance Payment Portion:</div>
+                <div class="item-value"><span id="advanceValue">0</span> ILS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Register service worker for PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.error('Service Worker registration failed', err));
+    }
+  </script>
+</body>
+</html>
